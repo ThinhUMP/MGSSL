@@ -291,7 +291,7 @@ class MoleculeDataset(InMemoryDataset):
 
     def get(self, idx):
         data = Data()
-        for key in self.data.keys:
+        for key in self.data.keys():
             item, slices = self.data[key], self.slices[key]
             s = list(repeat(slice(None), item.dim()))
             s[data.__cat_dim__(key, item)] = slice(slices[idx],
@@ -1165,7 +1165,7 @@ def _load_sider_dataset(input_path):
     labels = labels.replace(0, -1)
     assert len(smiles_list) == len(rdkit_mol_objs_list)
     assert len(smiles_list) == len(labels)
-    return smiles_list, rdkit_mol_objs_list, labels.value
+    return smiles_list, rdkit_mol_objs_list, labels.values
 
 def _load_toxcast_dataset(input_path):
     """
