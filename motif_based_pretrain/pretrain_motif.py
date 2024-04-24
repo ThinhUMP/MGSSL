@@ -97,7 +97,7 @@ def main():
     parser.add_argument('--dataset', type=str, default='./data/zinc/all.txt',
                         help='root directory of dataset. For now, only classification.')
     parser.add_argument('--gnn_type', type=str, default="gin")
-    parser.add_argument('--input_model_file', type=str, default='./saved_model/init', help='filename to read the model (if there is any)')
+    parser.add_argument('--input_model_file', type=str, default='', help='filename to read the model (if there is any)')
     parser.add_argument('--output_model_file', type=str, default='./saved_model/motif_pretrain',
                         help='filename to output the pre-trained model')
     parser.add_argument('--num_workers', type=int, default=8, help='number of workers for dataset loading')
