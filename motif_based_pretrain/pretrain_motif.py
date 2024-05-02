@@ -116,29 +116,29 @@ def main():
 
     dataset = MoleculeDataset(args.dataset)
     print(dataset[0].size, dataset[0].recover, dataset[0].assemble)
-    # loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, collate_fn=lambda x:x, drop_last=True)
+    loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, collate_fn=lambda x:x, drop_last=True)
 
-    # model = GNN(args.num_layer, args.emb_dim, JK=args.JK, drop_ratio=args.dropout_ratio, gnn_type=args.gnn_type).to(device)
-    # if not args.input_model_file == "":
-    #     model.load_state_dict(torch.load(args.input_model_file + ".pth"))
+    model = GNN(args.num_layer, args.emb_dim, JK=args.JK, drop_ratio=args.dropout_ratio, gnn_type=args.gnn_type).to(device)
+    if not args.input_model_file == "":
+        model.load_state_dict(torch.load(args.input_model_file + ".pth"))
 
-    # vocab = [x.strip("\r\n ") for x in open(args.vocab)]
-    # vocab = Vocab(vocab)
-    # motif_model = Motif_Generation(vocab, args.hidden_size, args.latent_size, 3, device, args.order).to(device)
+    vocab = [x.strip("\r\n ") for x in open(args.vocab)]
+    vocab = Vocab(vocab)
+    motif_model = Motif_Generation(vocab, args.hidden_size, args.latent_size, 3, device, args.order).to(device)
 
-    # model_list = [model, motif_model]
-    # optimizer_model = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.decay)
-    # optimizer_motif = optim.Adam(motif_model.parameters(), lr=1e-3, weight_decay=args.decay)
+    model_list = [model, motif_model]
+    optimizer_model = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.decay)
+    optimizer_motif = optim.Adam(motif_model.parameters(), lr=1e-3, weight_decay=args.decay)
 
-    # optimizer_list = [optimizer_model, optimizer_motif]
+    optimizer_list = [optimizer_model, optimizer_motif]
 
-    # for epoch in range(1, args.epochs + 1):
-    #     print("====epoch " + str(epoch))
+    for epoch in range(1, args.epochs + 1):
+        print("====epoch " + str(epoch))
 
-    #     train(args, model_list, loader, optimizer_list, device)
+        train(args, model_list, loader, optimizer_list, device)
 
-    #     if not args.output_model_file == "":
-    #         torch.save(model.state_dict(), args.output_model_file + ".pth")
+        if not args.output_model_file == "":
+            torch.save(model.state_dict(), args.output_model_file + ".pth")
 
 
 if __name__ == "__main__":
